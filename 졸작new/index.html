@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet@2.2.2/dist/posenet.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core@3.11.0/dist/tf-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter@3.11.0/dist/tf-converter.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl@3.11.0/dist/tf-backend-webgl.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection@0.0.6/dist/pose-detection.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="#" />
+  </head>
+
+  <body>
+    <div id="bigbox">
+      <div id="ratio">
+        <h1>
+          이 페이지는 매장 디스플레이와 아이패드 에어의 세로모드를<br />
+          지원하는 페이지입니다.<br />화면을 세로로 전환해주세요!
+        </h1>
+      </div>
+
+      <!-- ////////////////////////////////////////////////////////////////           첫 화면          ///////////////////////////////////////////////////////////// -->
+
+      <div class="pages" id="firstPage">
+        <div class="topComponent">
+          <div class="components">
+            <img class="cloud0" src="img/clouds/cloud0.png" alt="" />
+            <div class="window">
+              <h1 id="firstH1">버튼을 눌러<br />시작해주세요!</h1>
+              <img class="windowImg" src="img/clouds/window0.png" alt="" />
+            </div>
+            <img class="cloud1" src="img/clouds/cloud1.png" alt="" />
+          </div>
+        </div>
+
+        <div id="circleFlexbox">
+          <div id="blackHallBox">
+            <div id="blackHall"></div>
+            <div id="shadow"></div>
+          </div>
+        </div>
+
+        <div id="videoBox">
+          <video
+            id="video"
+            width="1920"
+            height="1080"
+            autoplay
+            muted
+            playsinline
+          ></video>
+        </div>
+
+        <svg
+          id="firstArm"
+          width="123"
+          height="119"
+          viewBox="0 0 123 119"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill="#fff"
+            stroke="#000"
+            d="M113.369 1.477a10.81 10.81 0 0 1 2.172.346 9.52 9.52 0 0 1 5.502 4.15c.703 1.237 1.223 2.82 1.416 4.846-.079 1.667-.406 3.042-.892 4.177a9.538 9.538 0 0 1-4.324 4.455 11.002 11.002 0 0 1-4.034 1.014h-.024l-.071.002C12.449 22.085-24.856 86.753-31.354 117.553l-18.621-3.775c8-38.236 51.929-110.527 162.784-112.308.188-.004.375-.001.56.007Z"
+          />
+        </svg>
+
+        <div id="eyes">
+          <div class="whiteEyes">
+            <div class="blackEyes"></div>
+          </div>
+          <div class="whiteEyes">
+            <div class="blackEyes"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ////////////////////////////////////////////////////////////////           메인화면          ///////////////////////////////////////////////////////////// -->
+
+      <div class="pages" id="secondPage">
+        <div class="characters" id="membership">
+          <img src="img/characters/membershipCharacter0.gif" alt="" />
+        </div>
+        <div class="characters" id="storecloth">
+          <img src="img/characters/clothCharacter0.gif" alt="" />
+        </div>
+        <div class="characters" id="onlinecloth">
+          <img src="img/characters/clothCharacter1.gif" alt="" />
+        </div>
+        <div class="characters" id="storeshoes">
+          <img src="img/characters/shoesCharacter0.gif" alt="" />
+        </div>
+        <div class="characters" id="onlineshoes">
+          <img src="img/characters/shoesCharacter1.gif" alt="" />
+        </div>
+
+        <div class="characterShadow"></div>
+        <div class="characterShadow"></div>
+        <div class="characterShadow"></div>
+        <div class="characterShadow"></div>
+        <div class="characterShadow"></div>
+
+        <div class="talkBox">
+          <div class="talks">
+            <h2>멤버쉽 안내</h2>
+          </div>
+          <img src="img/charactersPolygon.png" alt="" />
+        </div>
+
+        <div class="talkBox">
+          <div class="talks">
+            <h2>매장 옷 피팅</h2>
+          </div>
+          <img src="img/charactersPolygon.png" alt="" />
+        </div>
+
+        <div class="talkBox">
+          <div class="talks">
+            <h2>온라인 옷 피팅</h2>
+          </div>
+          <img src="img/charactersPolygon.png" alt="" />
+        </div>
+
+        <div class="talkBox">
+          <div class="talks">
+            <h2>매장 신발 안내</h2>
+          </div>
+          <img src="img/charactersPolygon.png" alt="" />
+        </div>
+
+        <div class="talkBox">
+          <div class="talks">
+            <h2>카메라를 이용한 온라인 신발 탐색</h2>
+          </div>
+          <img src="img/charactersPolygon.png" alt="" />
+        </div>
+
+        <div class="topComponent2">
+          <div class="components2">
+            <img class="cloud0" src="img/clouds/cloud0.png" alt="" />
+            <div class="window2">
+              <h1 id="mainH1">아래 캐릭터를<br />선택해 주세요!</h1>
+              <img class="windowImg" src="img/clouds/window1.png" alt="" />
+            </div>
+            <img class="cloud1" src="img/clouds/cloud1.png" alt="" />
+          </div>
+        </div>
+
+        <img id="woods" src="img/woods.png" alt="" />
+      </div>
+
+      <!-- ////////////////////////////////////////////////////////////////           멤버쉽화면          ///////////////////////////////////////////////////////////// -->
+
+      <div class="pages" id="thirdPage">
+        <div class="backBox">
+          <img class="backButton" src="img/backIcon.png" alt="" />
+        </div>
+
+        <div id="movieContent">
+          <img class="windowImg2" src="img/clouds/window3.png" alt="" />
+          <div id="movieBox">
+            <h2 id="membershipTitle">
+              멤버쉽 혜택을 받는 방법을<br />소개해 드려요!
+            </h2>
+            <div id="infoIconBox">
+              <img id="infoImg" src="img/infoIcon.png" alt="" />
+            </div>
+            <div id="infoBox">
+              <div id="blackCutton"></div>
+              <video id="infoVideo" src="img/membershipVideo.mp4"></video>
+              <img id="playButton" src="img/playButton.png" alt="" />
+              <div id="playBar">
+                <div id="playBar2"></div>
+                <div id="playCircle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="membershipCharacter">
+          <img id="membershipQr" src="img/qrCode.png" alt="" />
+          <img
+            id="membershipQrCharacter"
+            src="img/characters/membershipCharacter.gif"
+            alt=""
+          />
+          <div id="membershipShadow0"></div>
+        </div>
+
+        <div class="warningCharacter">
+          <div class="membershipTalk">
+            <div id="membershipTalk">
+              <h1>
+                나이키 앱을 다운로드하면<br /><b>다양한 혜택</b>을 드려요!
+              </h1>
+              <h2>*5만원 이상 구매 시 적용,<br />다른 할인과 중복 가능</h2>
+            </div>
+            <img id="membershipEnd" src="img/talkend.png" alt="" />
+          </div>
+          <img
+            id="membershipStanding"
+            src="img/characters/membershipStandingCharacter.gif"
+            alt=""
+          />
+          <div id="membershipShadow1"></div>
+        </div>
+      </div>
+
+      <!-- ////////////////////////////////////////////////////////////////           매장옷화면          ///////////////////////////////////////////////////////////// -->
+
+      <div class="pages" id="fourthPage">
+        <div id="fourBack" class="backBox">
+          <img class="backButton" src="img/backIcon.png" alt="" />
+        </div>
+
+        <div id="videoBox02">
+          <img id="windowheader" src="img/clouds/window4.png" alt="" />
+          <video
+            id="video2"
+            width="2880"
+            height="1620"
+            autoplay
+            muted
+            playsinline
+          ></video>
+          <img id="windowFooter" src="img/clouds/window4_2.png" alt="" />
+        </div>
+
+        <div class="chTalk">
+          <div id="chTalk">
+            <div>
+              <h2 id="chTalkContent">오 굿굿</h2>
+            </div>
+            <img src="img/talkend.png" alt="" />
+          </div>
+          <img
+            id="talkCharacter"
+            src="img/characters/membershipCharacter0.gif"
+            alt=""
+          />
+        </div>
+
+        <div id="clothimgBox">
+          <div id="clothimg" class="clothimg">
+            <img id="clothChangeimg" src="img/clothes/clothimg0.png" alt="" />
+          </div>
+          <div id="clothCharacter">
+            <img
+              class="ctCharacter"
+              src="img/characters/clothCharacterStanding0.gif"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div class="clothesBox">
+          <div class="flexBox">
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg1.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg2.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg3.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg4.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg5.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg6.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg7.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg8.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg9.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg10.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg11.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg12.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="topComponent" class="topComponent2">
+          <div class="components2">
+            <img class="cloud0" src="img/clouds/cloud0.png" alt="" />
+            <img class="cloud1" src="img/clouds/cloud1.png" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ////////////////////////////////////////////////////////////////           온라인 옷 화면          ///////////////////////////////////////////////////////////// -->
+
+      <div class="pages" id="fifthPage">
+        <div id="fourBack" class="backBox">
+          <img class="backButton" src="img/backIcon.png" alt="" />
+        </div>
+
+        <div id="qrCode">
+          <img id="closeButton" src="img/closeButton.png" alt="" />
+          <img src="img/qrCode.png" alt="" />
+          <div id="bin0"></div>
+        </div>
+
+        <div id="videoBox02">
+          <img id="windowheader" src="img/clouds/window4.png" alt="" />
+          <video
+            id="video3"
+            width="2880"
+            height="1620"
+            autoplay
+            muted
+            playsinline
+          ></video>
+          <img id="windowFooter" src="img/clouds/window4_2.png" alt="" />
+        </div>
+
+        <div class="chTalk">
+          <div id="chTalk">
+            <div>
+              <h2 id="chTalkContent2">오 굿굿</h2>
+            </div>
+            <img src="img/talkend.png" alt="" />
+          </div>
+          <img
+            id="talkCharacter"
+            src="img/characters/membershipCharacter0.gif"
+            alt=""
+          />
+        </div>
+
+        <div id="clothimgBox">
+          <div id="clothimg02" class="clothimg">
+            <img
+              id="clothChangeimg02"
+              src="img/clothes/clothimg13.png"
+              alt=""
+            />
+          </div>
+          <div id="clothCharacter">
+            <img
+              class="ctCharacter"
+              src="img/characters/clothCharacterStanding1.gif"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div class="clothesBox">
+          <div class="flexBox">
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg14.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg15.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg16.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg17.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg18.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg19.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg20.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg21.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg22.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg23.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg24.png"
+                alt=""
+              />
+            </div>
+            <div class="clothes">
+              <img
+                class="smallClothes"
+                src="img/clothes/clothimg25.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="topComponent" class="topComponent2">
+          <div class="components2">
+            <img class="cloud0" src="img/clouds/cloud0.png" alt="" />
+            <img class="cloud1" src="img/clouds/cloud1.png" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ////////////////////////////////////////////////////////////////           매장 신발 화면          ///////////////////////////////////////////////////////////// -->
+
+      <div class="pages" id="sixthPage">
+        <div class="backBox">
+          <img class="backButton" src="img/backIcon.png" alt="" />
+        </div>
+
+        <div id="returnBox">
+          <img id="returnButton" src="img/backIcon.png" alt="" />
+        </div>
+
+        <div class="topComponent">
+          <div class="components">
+            <img class="cloud0" src="img/clouds/cloud0.png" alt="" />
+            <div class="window">
+              <img
+                class="shoesCharacter"
+                src="img/characters/shoesCharacterStanding0.gif"
+                alt=""
+              />
+              <img class="windowImg" src="img/clouds/window2.png" alt="" />
+            </div>
+            <img class="cloud1" src="img/clouds/cloud1.png" alt="" />
+          </div>
+        </div>
+
+        <div id="selectBox">
+          <div class="shoesButton" id="leftButton01">
+            <h1 id="leftText01">트<br />레<br />이<br />닝</h1>
+          </div>
+          <div class="shoesButton" id="rightButton01">
+            <h1 id="rightText01">러<br />닝</h1>
+          </div>
+        </div>
+
+        <div class="shoesTalk">
+          <img src="img/sheos_talkend.png" alt="" />
+          <div class="shTalk">
+            <h1 id="shText">
+              캐주얼 신발은 아래와 같아!<br />일상에서 편하게 신기 좋지!<br />무리한
+              운동은 러닝과 트레이닝으로!
+            </h1>
+          </div>
+        </div>
+
+        <div class="bbBox">
+          <div class="bb">
+            <div class="shoesBox">
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg01.png" alt="" />
+              </div>
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg02.png" alt="" />
+              </div>
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg03.png" alt="" />
+              </div>
+            </div>
+            <div class="shoesBox">
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg04.png" alt="" />
+              </div>
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg05.png" alt="" />
+              </div>
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg06.png" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="bb">
+            <div class="shoesBox">
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg07.png" alt="" />
+              </div>
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg08.png" alt="" />
+              </div>
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg09.png" alt="" />
+              </div>
+            </div>
+            <div class="shoesBox">
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg10.png" alt="" />
+              </div>
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg11.png" alt="" />
+              </div>
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg12.png" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="bb">
+            <div class="shoesBox">
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg13.png" alt="" />
+              </div>
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg14.png" alt="" />
+              </div>
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg15.png" alt="" />
+              </div>
+            </div>
+            <div class="shoesBox">
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg16.png" alt="" />
+              </div>
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg17.png" alt="" />
+              </div>
+              <div class="shoes">
+                <img class="shoesimg" src="img/shoesimg18.png" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ////////////////////////////////////////////////////////////////           온라인 신발 화면          ///////////////////////////////////////////////////////////// -->
+
+      <div class="pages" id="seventhPage">
+        <div id="backBox07" class="backBox">
+          <img class="backButton" src="img/backIcon.png" alt="" />
+        </div>
+
+        <div id="returnBox02">
+          <img id="returnButton02" src="img/backIcon.png" alt="" />
+        </div>
+
+        <div class="chTalk">
+          <div id="chTalk">
+            <div>
+              <h2 id="chTalkContent3">정말 멋진 신발인걸?</h2>
+            </div>
+            <img src="img/talkend.png" alt="" />
+          </div>
+          <img
+            id="talkCharacter"
+            src="img/characters/membershipCharacter0.gif"
+            alt=""
+          />
+        </div>
+
+        <div id="videoBox02" class="shoesVideo">
+          <img id="windowheader" src="img/clouds/window5.png" alt="" />
+          <img id="windowFooter" src="img/clouds/window5_2.png" alt="" />
+          <div class="shoesinfoBox">
+            <img id="buyQrCode" src="img/qrCode_white.png" alt="" />
+            <div id="imgBox">
+              <img id="shoesinfo" src="img/shoesCamera/Pegasus4_0.png" alt="" />
+              <div id="smallImgComponent">
+                <img
+                  class="smallInfo"
+                  src="img/shoesCamera/Pegasus4_1.png"
+                  alt=""
+                />
+                <img
+                  class="smallInfo"
+                  src="img/shoesCamera/Pegasus4_2.png"
+                  alt=""
+                />
+                <img
+                  class="smallInfo"
+                  src="img/shoesCamera/Pegasus4_3.png"
+                  alt=""
+                />
+                <img
+                  class="smallInfo"
+                  src="img/shoesCamera/Pegasus4_4.png"
+                  alt=""
+                />
+                <img
+                  class="smallInfo"
+                  src="img/shoesCamera/Pegasus4_5.png"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div id="textBox">
+              <h1 id="sheosMember">For Members</h1>
+              <h2 id="shoesTitle">나이키 페가수스 트레일 4</h2>
+              <h3 id="shoesSex">남성 트레일 러닝화</h3>
+              <h4 id="sheosPrice">13,000원</h4>
+              <p id="sheosParagraph">
+                러닝은 새로운 모험과 목표를 향해 달리는 여러분을 도로에서
+                트레일까지 이끌어줄 일상 속 작은 습관입니다. 나이키 페가수스
+                트레일 4는 지지력과 탄력 있는 착화감을 선사하여 러닝을 계속 이어
+                나가게 도와줍니다. 험준한 지면에서 러닝을 지속할 수 있도록
+                언더풋 접지력을 제공하며 도로에서도 부드러운 착화감을
+                선사합니다. 신발 끈으로 중족부 지지력을 조절해 최상의 핏과
+                착화감을 찾아낼 수 있습니다. 걸음에 날개를 달아주는 든든한
+                지원군이 여러분의 여정에 함께합니다. 이제 달려볼 시간입니다.
+              </p>
+              <div id="buyButton">
+                <h5>온라인 구매 하기</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="shoesCharacter">
+          <div id="videoShoesTalk" class="shoesTalk">
+            <div id="videoshTalk" class="shTalk">
+              <h1 id="shText">신발을 카메라에 갖다 대줘!</h1>
+            </div>
+            <img id="videoShoesTalkEnd" src="img/sheos_talkend.png" alt="" />
+          </div>
+          <img
+            id="videoShoes"
+            src="img/characters/shoesCharacterStanding1.gif"
+            alt=""
+          />
+        </div>
+
+        <div id="topComponent" class="topComponent2">
+          <div class="components2">
+            <img class="cloud0" src="img/clouds/cloud0.png" alt="" />
+            <img class="cloud1" src="img/clouds/cloud1.png" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <div class="touchPrevention">
+        <div id="touchPreventionBox">
+          <div id="mapButton">
+            <h2 id="buttonName"></h2>
+          </div>
+          <div id="mapimg">
+            <img id="mapimgBox" src="img/mapimg/mapimg0.png" alt="" />
+            <h3 id="mapimgText"></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script type="module" src="script.js"></script>
